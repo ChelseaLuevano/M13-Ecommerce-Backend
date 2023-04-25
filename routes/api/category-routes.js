@@ -31,33 +31,38 @@ router.get('/', (req, res) => {
     // }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
-//   try{
-//     const categoryData = await Category.findOne(req.params.id, {
-//       include: [{model: Product, through: 'product_category', as:'products' }]
-//     });
+  try {
+    const categoryData = await Category.findByPk(req.params.id, {
+      where: {
+            id: req.params.id,
+          }, 
+      include: [Product]
+    });
 
-//   if (!categoryData) {
-//     res.status(404).json({message: 'No category found with this ID.'})
-//     return;
-//   }
+  if (!categoryData) {
+    res.status(404).json({message: 'No category found with this ID.'});
+    return;
+  }
 
-//   res.status(200).json(categoryData);  
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
+  res.status(200).json(categoryData);  
+  
+  } catch (err) {
+    res.status(500).json(err);
+   console.log(err);
+  }
 
-  Category.findOne({ 
-    where: {
-      id: req.params.id,
-    }, 
-    include: [Product]
-  })
-  .then((categories) => res.json(categories))
+  // Category.findOne({ 
+  //   where: {
+  //     id: req.params.id,
+  //   }, 
+  //   include: [Product]
+  // })
+  // .then((categories) => res.json(categories))
 
-  .catch((err) => res.status(400).json(err))
+  // .catch((err) => res.status(400).json(err))
 });
 
 router.post('/', async (req, res) => {
