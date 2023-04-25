@@ -30,13 +30,10 @@ Product.init(
     stock: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      set(value) {
-        this.setDataValue('stock', 10)
-      },
+      defaultValue: 10,
       validate: {
-        isNumberic: true
+        isNumeric: true,
       }
-
     }
   },
   {
@@ -47,6 +44,7 @@ Product.init(
     modelName: 'product',
   }
 );
+
 
 
 module.exports = Product;
