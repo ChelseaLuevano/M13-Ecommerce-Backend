@@ -129,5 +129,5 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Used this statement becuase I am working on Mac
+# Used this statement because I am working on Mac
 **/.DS_Store
